@@ -1,0 +1,17 @@
+%grammar golf
+%version 0.0.1
+
+golf: (
+| block-comment
+| line-comment
+| other
+)*
+
+block-comment:
+  / '###' ( ALL*? ) '###' /
+
+line-comment:
+  / '#' ( ANY* ) EOL /
+
+other:
+  / ( [^'#']+ ) /

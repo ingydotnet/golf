@@ -1,0 +1,40 @@
+#!/usr/bin/env coffee
+
+# Move to a prelude.coffee:
+global.say = console.log
+yaml = require 'js-yaml'
+global.xxx = ->
+    say yaml.dump Array.prototype.slice.call arguments
+    process.exit 1
+
+fs = require 'fs'
+{Parser, Grammar} = require 'pegex'
+require '../lib/golf/ast'
+
+grammar_text = String fs.readFileSync 'share/golf.pgx'
+
+parser = new Parser
+  grammar: new Grammar text: grammar_text
+  receiver: new Golf.AST
+
+golf_text = fs.readFileSync('/dev/stdin').toString()
+
+ast = parser.parse golf_text
+
+emit = (o)->
+  for s in o
+    switch s.type
+      when 'comment'
+        if s.block
+          print "/*#{s.value}*/"
+        else
+          print "//#{s.value}\n"
+      when 'other'
+        print s.value
+
+print = (s)->
+  fs.writeSync 1, s
+
+emit ast
+
+# vim: set sw=2:
