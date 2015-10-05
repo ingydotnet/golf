@@ -35,8 +35,9 @@ testXXX:
 	coffee -e '(require "./test/lib/test/harness").run()' $@/*.coffee
 
 test:
-	cat test/learn.golf | ./bin/golf > test/new.go
-	diff -u test/learn.go test/new.go && rm test/new.go
+	./bin/golf --compile test/learn.golf
+	@if [ ! -f test/learn.go ]; then echo 'No test/learn.go'; exit 1; fi
+	diff -u test/expect.learn.go test/learn.go && rm test/learn.go
 
 install: distdir
 	(cd $(DISTDIR); npm install -g .)

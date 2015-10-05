@@ -1,4 +1,4 @@
-require 'pegex'
+(require 'pegex').require 'tree'
 
 (global.Golf?={})
 class Golf.AST extends Pegex.Tree

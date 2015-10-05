@@ -1,0 +1,18 @@
+golf
+====
+
+Go; less f**kery
+
+= Synopsis
+
+  echo '-> "Hello, world"' > hello.golf
+  golf --compile hello.golf
+  go run hello.go
+
+= Description
+
+Golf is to Go as CoffeeScript is to JavaScript.
+
+Go is a modern language with a fairly arcane and arbitrary syntax. Golf lets
+you write Go programs in a different syntax, that leans heavily towards doing
+more with less.
